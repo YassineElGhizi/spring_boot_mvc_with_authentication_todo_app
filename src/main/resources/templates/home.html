@@ -10,25 +10,34 @@
   <div class="container">
 
     <div class="alert alert-danger" th:if="${error}" th:text="${error.toString()}"></div>
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-center">
+            <div class="card mt-4 col-5">
+              <div class="card-body">
+                <form th:action="@{/signin}" method="post" th:object="${loginForm}">
+                  <div class="mb-3">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" name="email">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password">
+                  </div>
+                  <div class="mb-3 form-check">
+                    <a href="/register" class="form-check-label" for="exampleCheck1">Dont have an account ?</a>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                  </div>
 
-    <div class="card mt-4" style="widows: 50%">
-      <div class="card-body">
-        <form th:action="@{/signin}" method="post" th:object="${loginForm}">
-          <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="email" class="form-control" name="email">
+                </form>
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" name="password">
-          </div>
-          <div class="mb-3 form-check">
-            <a href="/register" class="form-check-label" for="exampleCheck1">Dont have an account ?</a>
-          </div>
-          <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+
+        </div>
       </div>
-    </div>
   </div>
 
 </body>
