@@ -41,6 +41,7 @@ public class HomeController {
         model.addAttribute("user_name", user.getName());
         model.addAttribute("user_id", user.getId());
         model.addAttribute("msg" , null);
+        model.addAttribute("todos", user.getTodos());
 
         return "todo";
     }

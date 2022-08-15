@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class TodoController {
     }
 
     @RequestMapping(value = {"/todo"}, method = RequestMethod.POST)
-    public String save_user_to_db(Model model, @ModelAttribute("todo") CreateTodo createTodo) throws IOException {
+    public String save_todo_to_db(Model model, @ModelAttribute("todo") CreateTodo createTodo) throws IOException {
         String image_path = "";
         if (!createTodo.image.isEmpty()) {
             StaticFilesPath staticFilesPath = new StaticFilesPath();
@@ -47,8 +48,24 @@ public class TodoController {
         todoRepository.save(t);
         model.addAttribute("user_name", user.getName());
         model.addAttribute("user_id", user.getId());
-        model.addAttribute("msg", "To Has Been Created Successfully");
+        model.addAttribute("msg", "Todo Has Been Created Successfully");
+        model.addAttribute("todos", user.getTodos());
         return "todo";
+    }
+
+
+    @RequestMapping(value = {"/delete/todo"}, method = RequestMethod.GET)
+    public String delete_todo(Model model, @RequestParam String id , @RequestParam String user_id) {
+        System.out.println("id = " + id + " user_id = " + user_id);
+        todoRepository.deleteById(Long.parseLong(id));
+        User user = userRepository.findUserById(Long.parseLong(user_id));
+
+        model.addAttribute("user_name", user.getName());
+        model.addAttribute("user_id", user.getId());
+        model.addAttribute("msg", "Todo Has Been Deleted Successfully");
+        model.addAttribute("todos", user.getTodos());
+        return "todo";
+
     }
 
 

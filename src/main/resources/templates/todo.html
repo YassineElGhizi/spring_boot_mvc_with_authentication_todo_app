@@ -29,7 +29,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Create a Todo</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -47,10 +47,6 @@
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -67,11 +63,13 @@
                 </thead>
                 <tbody>
                 <tr th:each="todo: ${todos}">
-                    <td>sadasd</td>
-                    <td>Otto</td>
-                    <td>07-02-2022</td>
+                    <td th:text="${todo.name}"></td>
                     <td>
-                        <a href="/delete">Delete</a>
+                        <img th:src="'/content/' + ${todo.image}" alt="" style="max-width: 5rem">
+                    </td>
+                    <td th:text="${todo.created_at}"></td>
+                    <td>
+                        <a class="btn btn-danger" th:href="'/delete/todo?id=' + ${todo.id} + '&user_id=' + ${user_id}">Delete</a>
                     </td>
                 </tr>
                 </tbody>
