@@ -3,6 +3,7 @@ package com.advanced_to_list.advanced_to_list.controllers;
 
 import com.advanced_to_list.advanced_to_list.Config.StaticFilesPath;
 import com.advanced_to_list.advanced_to_list.FormValidation.CreateTodo;
+import com.advanced_to_list.advanced_to_list.FormValidation.UpdateTodo;
 import com.advanced_to_list.advanced_to_list.entities.Todo;
 import com.advanced_to_list.advanced_to_list.entities.User;
 import com.advanced_to_list.advanced_to_list.repositories.TodoRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Date;
 import java.util.Optional;
 
@@ -37,7 +39,6 @@ public class TodoController {
         String image_path = "";
         if (!createTodo.image.isEmpty()) {
             StaticFilesPath staticFilesPath = new StaticFilesPath();
-            System.out.println("FUCK :" + staticFilesPath.path + createTodo.image.getOriginalFilename());
             image_path = String.valueOf((int) (new Date().getTime() / 1000)) + createTodo.image.getOriginalFilename();
             FileOutputStream output = new FileOutputStream(staticFilesPath.path + image_path);
             output.write(createTodo.image.getBytes());
@@ -55,7 +56,7 @@ public class TodoController {
 
 
     @RequestMapping(value = {"/delete/todo"}, method = RequestMethod.GET)
-    public String delete_todo(Model model, @RequestParam String id , @RequestParam String user_id) {
+    public String delete_todo(Model model, @RequestParam String id, @RequestParam String user_id) {
         System.out.println("id = " + id + " user_id = " + user_id);
         todoRepository.deleteById(Long.parseLong(id));
         User user = userRepository.findUserById(Long.parseLong(user_id));
@@ -65,7 +66,27 @@ public class TodoController {
         model.addAttribute("msg", "Todo Has Been Deleted Successfully");
         model.addAttribute("todos", user.getTodos());
         return "todo";
+    }
 
+
+    @RequestMapping(value = {"/todo/update"}, method = RequestMethod.POST)
+    public String delete_todo(Model model, @ModelAttribute("update_todo") UpdateTodo updateTodo) throws IOException {
+        String image_path = "";
+        if (!updateTodo.image.isEmpty()) {
+            StaticFilesPath staticFilesPath = new StaticFilesPath();
+            image_path = String.valueOf((int) (new Date().getTime() / 1000)) + updateTodo.image.getOriginalFilename();
+            FileOutputStream output = new FileOutputStream(staticFilesPath.path + image_path);
+            output.write(updateTodo.image.getBytes());
+        }
+        User user = userRepository.findUserById(updateTodo.user_id);
+        Todo t = new Todo(updateTodo.todo_id, updateTodo.name, image_path, user);
+        todoRepository.save(t);
+
+        model.addAttribute("user_name", user.getName());
+        model.addAttribute("user_id", user.getId());
+        model.addAttribute("msg", "Todo Has Been Updated Successfully");
+        model.addAttribute("todos", user.getTodos());
+        return "todo";
     }
 
 

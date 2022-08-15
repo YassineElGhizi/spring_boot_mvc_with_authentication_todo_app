@@ -11,7 +11,7 @@
 
     <div class="alert alert-danger" th:if="${error}" th:text="${error.toString()}"></div>
 
-    <div class="card mt-4">
+    <div class="card mt-4" style="widows: 50%">
       <div class="card-body">
         <form th:action="@{/signin}" method="post" th:object="${loginForm}">
           <div class="mb-3">

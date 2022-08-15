@@ -17,6 +17,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "todos")
 public class Todo {
+
+
     @Id
     @GeneratedValue
     private Long id;
@@ -35,6 +37,13 @@ public class Todo {
     public Todo(String image, String name, User user) {
         this.image = image;
         this.name = name;
+        this.user = user;
+    }
+
+    public Todo(Long id, String name, String image, User user) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
         this.user = user;
     }
 
