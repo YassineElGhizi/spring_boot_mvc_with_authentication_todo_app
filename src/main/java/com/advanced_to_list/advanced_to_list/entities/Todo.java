@@ -45,6 +45,7 @@ public class Todo {
         this.name = name;
         this.image = image;
         this.user = user;
+        this.created_at = java.time.LocalDate.now();
     }
 
 }
