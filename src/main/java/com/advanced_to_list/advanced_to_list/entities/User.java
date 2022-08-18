@@ -3,7 +3,9 @@ package com.advanced_to_list.advanced_to_list.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
 
 import javax.persistence.*;
@@ -34,7 +36,6 @@ public class User {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.password = encoder.encode(password);
     }
-
 
 
     public boolean checkPassword(String password) {

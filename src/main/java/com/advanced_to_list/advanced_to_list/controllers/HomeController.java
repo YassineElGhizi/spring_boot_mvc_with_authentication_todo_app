@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
 @Controller
 public class HomeController {
     private final UserRepository userRepository;
@@ -26,7 +30,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/signin"}, method = RequestMethod.POST)
-    public String signing(Model model, @ModelAttribute("loginForm") Login login) {
+    public String signing(Model model, @ModelAttribute("loginForm") Login login, HttpServletRequest request) {
         User user = userRepository.findUserByEmail(login.getEmail());
         if (user == null) {
             model.addAttribute("error", "USER DOESNT EXISTS");
@@ -40,9 +44,10 @@ public class HomeController {
 
         model.addAttribute("user_name", user.getName());
         model.addAttribute("user_id", user.getId());
-        model.addAttribute("msg" , null);
+        model.addAttribute("msg", null);
         model.addAttribute("todos", user.getTodos());
 
+        request.getSession().setAttribute("id", user.getId());
         return "todo";
     }
 

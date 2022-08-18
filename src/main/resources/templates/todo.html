@@ -23,6 +23,10 @@
                 Create a Todo
             </button>
 
+            <br>
+            <br>
+            <a href="/search" class="btn btn-info" style="color: white">Advanced search</a>
+
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
@@ -90,7 +94,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/todo/update}" method="post" th:object="${update_todo}" enctype="multipart/form-data">
+                    <form th:action="@{/todo/update}" method="post" th:object="${update_todo}"
+                          enctype="multipart/form-data">
                         <div class="mb-3">
                             <input type="number" class="form-control" name="user_id" required hidden
                                    th:value="${user_id}">
