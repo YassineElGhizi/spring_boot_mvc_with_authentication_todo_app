@@ -25,7 +25,7 @@
 
             <br>
             <br>
-            <a href="/search" class="btn btn-info" style="color: white">Advanced search</a>
+            <a href="/search" class="btn btn-info" style="color: white">search</a>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -69,9 +69,9 @@
                 <tr th:each="todo: ${todos}">
                     <td th:text="${todo.name}"></td>
                     <td>
-                        <img th:src="'/content/' + ${todo.image}" alt="" style="max-width: 5rem">
+                        <img th:src="'/content/' + ${todo.image}" alt="" style="max-width: 5rem;max-height: 3rem; ">
                     </td>
-                    <td th:text="${todo.created_at}"></td>
+                    <td th:text="${todo.createdAt}"></td>
                     <td>
                         <a class="btn btn-danger" th:href="'/delete/todo?id=' + ${todo.id} + '&user_id=' + ${user_id}">Delete</a>
                         &nbsp;&nbsp;

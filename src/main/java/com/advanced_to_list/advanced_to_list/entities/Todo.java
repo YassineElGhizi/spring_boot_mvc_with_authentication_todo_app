@@ -28,7 +28,7 @@ public class Todo {
     private String image;
 
     @CreationTimestamp
-    private LocalDate created_at;
+    private LocalDate createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -45,7 +45,7 @@ public class Todo {
         this.name = name;
         this.image = image;
         this.user = user;
-        this.created_at = java.time.LocalDate.now();
+        this.createdAt = java.time.LocalDate.now();
     }
 
 }

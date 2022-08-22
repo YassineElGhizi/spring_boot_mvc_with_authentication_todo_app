@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AdvancedToListApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AdvancedToListApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AdvancedToListApplication.class, args);
+    }
 
 }

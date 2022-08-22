@@ -51,6 +51,20 @@ public class HomeController {
         return "todo";
     }
 
+    @RequestMapping(value = {"/signin"}, method = RequestMethod.GET)
+    public String signing_get(Model model, HttpSession session) {
+        @SuppressWarnings("unchecked") Long user_id = (Long) session.getAttribute("id");
+        User user = userRepository.findUserById(user_id);
+
+        model.addAttribute("user_name", user.getName());
+        model.addAttribute("user_id", user.getId());
+        model.addAttribute("msg", null);
+        model.addAttribute("todos", user.getTodos());
+
+        return "todo";
+    }
+
+
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
     public String register(Model model) {
         model.addAttribute("registerForm", new User());
